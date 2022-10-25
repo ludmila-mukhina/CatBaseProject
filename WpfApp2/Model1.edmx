@@ -1,0 +1,648 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище testBaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BreedTable">
+          <Key>
+            <PropertyRef Name="idBreed" />
+          </Key>
+          <Property Name="idBreed" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Breed" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatTable">
+          <Key>
+            <PropertyRef Name="idCat" />
+          </Key>
+          <Property Name="idCat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CatName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="idBreed" Type="int" Nullable="false" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+          <Property Name="idGender" Type="int" Nullable="false" />
+          <Property Name="Photo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="FeedCatTable">
+          <Key>
+            <PropertyRef Name="idFeedCat" />
+          </Key>
+          <Property Name="idFeedCat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCat" Type="int" Nullable="false" />
+          <Property Name="idFeed" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" />
+        </EntityType>
+        <EntityType Name="FeedTable">
+          <Key>
+            <PropertyRef Name="idFeed" />
+          </Key>
+          <Property Name="idFeed" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Feed" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="int" />
+        </EntityType>
+        <EntityType Name="GenderTable">
+          <Key>
+            <PropertyRef Name="idGender" />
+          </Key>
+          <Property Name="idGender" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PassportTable">
+          <Key>
+            <PropertyRef Name="idCat" />
+          </Key>
+          <Property Name="idCat" Type="int" Nullable="false" />
+          <Property Name="UniqueNumber" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="ColorCat" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleTable">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TraitCat">
+          <Key>
+            <PropertyRef Name="idTraitCat" />
+          </Key>
+          <Property Name="idTraitCat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCat" Type="int" Nullable="false" />
+          <Property Name="idTrait" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TraitTable">
+          <Key>
+            <PropertyRef Name="idTrait" />
+          </Key>
+          <Property Name="idTrait" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Trait" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserTable">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="int" Nullable="false" />
+          <Property Name="idGender" Type="int" Nullable="false" />
+          <Property Name="idRole" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CatTable_BreedTable">
+          <End Role="BreedTable" Type="Self.BreedTable" Multiplicity="1" />
+          <End Role="CatTable" Type="Self.CatTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BreedTable">
+              <PropertyRef Name="idBreed" />
+            </Principal>
+            <Dependent Role="CatTable">
+              <PropertyRef Name="idBreed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatTable_GenderTable">
+          <End Role="GenderTable" Type="Self.GenderTable" Multiplicity="1" />
+          <End Role="CatTable" Type="Self.CatTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GenderTable">
+              <PropertyRef Name="idGender" />
+            </Principal>
+            <Dependent Role="CatTable">
+              <PropertyRef Name="idGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeedCatTable_CatTable">
+          <End Role="CatTable" Type="Self.CatTable" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FeedCatTable" Type="Self.FeedCatTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatTable">
+              <PropertyRef Name="idCat" />
+            </Principal>
+            <Dependent Role="FeedCatTable">
+              <PropertyRef Name="idCat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeedCatTable_FeedTable">
+          <End Role="FeedTable" Type="Self.FeedTable" Multiplicity="1" />
+          <End Role="FeedCatTable" Type="Self.FeedCatTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeedTable">
+              <PropertyRef Name="idFeed" />
+            </Principal>
+            <Dependent Role="FeedCatTable">
+              <PropertyRef Name="idFeed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PassportTable_CatTable">
+          <End Role="CatTable" Type="Self.CatTable" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PassportTable" Type="Self.PassportTable" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CatTable">
+              <PropertyRef Name="idCat" />
+            </Principal>
+            <Dependent Role="PassportTable">
+              <PropertyRef Name="idCat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TraitCat_CatTable">
+          <End Role="CatTable" Type="Self.CatTable" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TraitCat" Type="Self.TraitCat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatTable">
+              <PropertyRef Name="idCat" />
+            </Principal>
+            <Dependent Role="TraitCat">
+              <PropertyRef Name="idCat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TraitCat_TraitTable">
+          <End Role="TraitTable" Type="Self.TraitTable" Multiplicity="1" />
+          <End Role="TraitCat" Type="Self.TraitCat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TraitTable">
+              <PropertyRef Name="idTrait" />
+            </Principal>
+            <Dependent Role="TraitCat">
+              <PropertyRef Name="idTrait" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTable_GenderTable">
+          <End Role="GenderTable" Type="Self.GenderTable" Multiplicity="1" />
+          <End Role="UserTable" Type="Self.UserTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GenderTable">
+              <PropertyRef Name="idGender" />
+            </Principal>
+            <Dependent Role="UserTable">
+              <PropertyRef Name="idGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTable_RoleTable">
+          <End Role="RoleTable" Type="Self.RoleTable" Multiplicity="1" />
+          <End Role="UserTable" Type="Self.UserTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleTable">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="UserTable">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище testBaseModelContainer">
+          <EntitySet Name="BreedTable" EntityType="Self.BreedTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatTable" EntityType="Self.CatTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeedCatTable" EntityType="Self.FeedCatTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeedTable" EntityType="Self.FeedTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GenderTable" EntityType="Self.GenderTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PassportTable" EntityType="Self.PassportTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleTable" EntityType="Self.RoleTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TraitCat" EntityType="Self.TraitCat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TraitTable" EntityType="Self.TraitTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTable" EntityType="Self.UserTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CatTable_BreedTable" Association="Self.FK_CatTable_BreedTable">
+            <End Role="BreedTable" EntitySet="BreedTable" />
+            <End Role="CatTable" EntitySet="CatTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatTable_GenderTable" Association="Self.FK_CatTable_GenderTable">
+            <End Role="GenderTable" EntitySet="GenderTable" />
+            <End Role="CatTable" EntitySet="CatTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeedCatTable_CatTable" Association="Self.FK_FeedCatTable_CatTable">
+            <End Role="CatTable" EntitySet="CatTable" />
+            <End Role="FeedCatTable" EntitySet="FeedCatTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeedCatTable_FeedTable" Association="Self.FK_FeedCatTable_FeedTable">
+            <End Role="FeedTable" EntitySet="FeedTable" />
+            <End Role="FeedCatTable" EntitySet="FeedCatTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PassportTable_CatTable" Association="Self.FK_PassportTable_CatTable">
+            <End Role="CatTable" EntitySet="CatTable" />
+            <End Role="PassportTable" EntitySet="PassportTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TraitCat_CatTable" Association="Self.FK_TraitCat_CatTable">
+            <End Role="CatTable" EntitySet="CatTable" />
+            <End Role="TraitCat" EntitySet="TraitCat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TraitCat_TraitTable" Association="Self.FK_TraitCat_TraitTable">
+            <End Role="TraitTable" EntitySet="TraitTable" />
+            <End Role="TraitCat" EntitySet="TraitCat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTable_GenderTable" Association="Self.FK_UserTable_GenderTable">
+            <End Role="GenderTable" EntitySet="GenderTable" />
+            <End Role="UserTable" EntitySet="UserTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTable_RoleTable" Association="Self.FK_UserTable_RoleTable">
+            <End Role="RoleTable" EntitySet="RoleTable" />
+            <End Role="UserTable" EntitySet="UserTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="testBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="testBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BreedTable" EntityType="testBaseModel.BreedTable" />
+          <EntitySet Name="CatTable" EntityType="testBaseModel.CatTable" />
+          <EntitySet Name="FeedCatTable" EntityType="testBaseModel.FeedCatTable" />
+          <EntitySet Name="FeedTable" EntityType="testBaseModel.FeedTable" />
+          <EntitySet Name="GenderTable" EntityType="testBaseModel.GenderTable" />
+          <EntitySet Name="PassportTable" EntityType="testBaseModel.PassportTable" />
+          <EntitySet Name="RoleTable" EntityType="testBaseModel.RoleTable" />
+          <EntitySet Name="TraitCat" EntityType="testBaseModel.TraitCat" />
+          <EntitySet Name="TraitTable" EntityType="testBaseModel.TraitTable" />
+          <EntitySet Name="UserTable" EntityType="testBaseModel.UserTable" />
+          <AssociationSet Name="FK_CatTable_BreedTable" Association="testBaseModel.FK_CatTable_BreedTable">
+            <End Role="BreedTable" EntitySet="BreedTable" />
+            <End Role="CatTable" EntitySet="CatTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatTable_GenderTable" Association="testBaseModel.FK_CatTable_GenderTable">
+            <End Role="GenderTable" EntitySet="GenderTable" />
+            <End Role="CatTable" EntitySet="CatTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeedCatTable_CatTable" Association="testBaseModel.FK_FeedCatTable_CatTable">
+            <End Role="CatTable" EntitySet="CatTable" />
+            <End Role="FeedCatTable" EntitySet="FeedCatTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PassportTable_CatTable" Association="testBaseModel.FK_PassportTable_CatTable">
+            <End Role="CatTable" EntitySet="CatTable" />
+            <End Role="PassportTable" EntitySet="PassportTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TraitCat_CatTable" Association="testBaseModel.FK_TraitCat_CatTable">
+            <End Role="CatTable" EntitySet="CatTable" />
+            <End Role="TraitCat" EntitySet="TraitCat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeedCatTable_FeedTable" Association="testBaseModel.FK_FeedCatTable_FeedTable">
+            <End Role="FeedTable" EntitySet="FeedTable" />
+            <End Role="FeedCatTable" EntitySet="FeedCatTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTable_GenderTable" Association="testBaseModel.FK_UserTable_GenderTable">
+            <End Role="GenderTable" EntitySet="GenderTable" />
+            <End Role="UserTable" EntitySet="UserTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTable_RoleTable" Association="testBaseModel.FK_UserTable_RoleTable">
+            <End Role="RoleTable" EntitySet="RoleTable" />
+            <End Role="UserTable" EntitySet="UserTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TraitCat_TraitTable" Association="testBaseModel.FK_TraitCat_TraitTable">
+            <End Role="TraitTable" EntitySet="TraitTable" />
+            <End Role="TraitCat" EntitySet="TraitCat" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BreedTable">
+          <Key>
+            <PropertyRef Name="idBreed" />
+          </Key>
+          <Property Name="idBreed" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Breed" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CatTable" Relationship="testBaseModel.FK_CatTable_BreedTable" FromRole="BreedTable" ToRole="CatTable" />
+        </EntityType>
+        <EntityType Name="CatTable">
+          <Key>
+            <PropertyRef Name="idCat" />
+          </Key>
+          <Property Name="idCat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CatName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idBreed" Type="Int32" Nullable="false" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="idGender" Type="Int32" Nullable="false" />
+          <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BreedTable" Relationship="testBaseModel.FK_CatTable_BreedTable" FromRole="CatTable" ToRole="BreedTable" />
+          <NavigationProperty Name="GenderTable" Relationship="testBaseModel.FK_CatTable_GenderTable" FromRole="CatTable" ToRole="GenderTable" />
+          <NavigationProperty Name="FeedCatTable" Relationship="testBaseModel.FK_FeedCatTable_CatTable" FromRole="CatTable" ToRole="FeedCatTable" />
+          <NavigationProperty Name="PassportTable" Relationship="testBaseModel.FK_PassportTable_CatTable" FromRole="CatTable" ToRole="PassportTable" />
+          <NavigationProperty Name="TraitCat" Relationship="testBaseModel.FK_TraitCat_CatTable" FromRole="CatTable" ToRole="TraitCat" />
+        </EntityType>
+        <EntityType Name="FeedCatTable">
+          <Key>
+            <PropertyRef Name="idFeedCat" />
+          </Key>
+          <Property Name="idFeedCat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCat" Type="Int32" Nullable="false" />
+          <Property Name="idFeed" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" />
+          <NavigationProperty Name="CatTable" Relationship="testBaseModel.FK_FeedCatTable_CatTable" FromRole="FeedCatTable" ToRole="CatTable" />
+          <NavigationProperty Name="FeedTable" Relationship="testBaseModel.FK_FeedCatTable_FeedTable" FromRole="FeedCatTable" ToRole="FeedTable" />
+        </EntityType>
+        <EntityType Name="FeedTable">
+          <Key>
+            <PropertyRef Name="idFeed" />
+          </Key>
+          <Property Name="idFeed" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Feed" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Int32" />
+          <NavigationProperty Name="FeedCatTable" Relationship="testBaseModel.FK_FeedCatTable_FeedTable" FromRole="FeedTable" ToRole="FeedCatTable" />
+        </EntityType>
+        <EntityType Name="GenderTable">
+          <Key>
+            <PropertyRef Name="idGender" />
+          </Key>
+          <Property Name="idGender" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CatTable" Relationship="testBaseModel.FK_CatTable_GenderTable" FromRole="GenderTable" ToRole="CatTable" />
+          <NavigationProperty Name="UserTable" Relationship="testBaseModel.FK_UserTable_GenderTable" FromRole="GenderTable" ToRole="UserTable" />
+        </EntityType>
+        <EntityType Name="PassportTable">
+          <Key>
+            <PropertyRef Name="idCat" />
+          </Key>
+          <Property Name="idCat" Type="Int32" Nullable="false" />
+          <Property Name="UniqueNumber" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="ColorCat" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CatTable" Relationship="testBaseModel.FK_PassportTable_CatTable" FromRole="PassportTable" ToRole="CatTable" />
+        </EntityType>
+        <EntityType Name="RoleTable">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserTable" Relationship="testBaseModel.FK_UserTable_RoleTable" FromRole="RoleTable" ToRole="UserTable" />
+        </EntityType>
+        <EntityType Name="TraitCat">
+          <Key>
+            <PropertyRef Name="idTraitCat" />
+          </Key>
+          <Property Name="idTraitCat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCat" Type="Int32" Nullable="false" />
+          <Property Name="idTrait" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CatTable" Relationship="testBaseModel.FK_TraitCat_CatTable" FromRole="TraitCat" ToRole="CatTable" />
+          <NavigationProperty Name="TraitTable" Relationship="testBaseModel.FK_TraitCat_TraitTable" FromRole="TraitCat" ToRole="TraitTable" />
+        </EntityType>
+        <EntityType Name="TraitTable">
+          <Key>
+            <PropertyRef Name="idTrait" />
+          </Key>
+          <Property Name="idTrait" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Trait" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TraitCat" Relationship="testBaseModel.FK_TraitCat_TraitTable" FromRole="TraitTable" ToRole="TraitCat" />
+        </EntityType>
+        <EntityType Name="UserTable">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="Int32" Nullable="false" />
+          <Property Name="idGender" Type="Int32" Nullable="false" />
+          <Property Name="idRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GenderTable" Relationship="testBaseModel.FK_UserTable_GenderTable" FromRole="UserTable" ToRole="GenderTable" />
+          <NavigationProperty Name="RoleTable" Relationship="testBaseModel.FK_UserTable_RoleTable" FromRole="UserTable" ToRole="RoleTable" />
+        </EntityType>
+        <Association Name="FK_CatTable_BreedTable">
+          <End Type="testBaseModel.BreedTable" Role="BreedTable" Multiplicity="1" />
+          <End Type="testBaseModel.CatTable" Role="CatTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BreedTable">
+              <PropertyRef Name="idBreed" />
+            </Principal>
+            <Dependent Role="CatTable">
+              <PropertyRef Name="idBreed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatTable_GenderTable">
+          <End Type="testBaseModel.GenderTable" Role="GenderTable" Multiplicity="1" />
+          <End Type="testBaseModel.CatTable" Role="CatTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GenderTable">
+              <PropertyRef Name="idGender" />
+            </Principal>
+            <Dependent Role="CatTable">
+              <PropertyRef Name="idGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeedCatTable_CatTable">
+          <End Type="testBaseModel.CatTable" Role="CatTable" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="testBaseModel.FeedCatTable" Role="FeedCatTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatTable">
+              <PropertyRef Name="idCat" />
+            </Principal>
+            <Dependent Role="FeedCatTable">
+              <PropertyRef Name="idCat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PassportTable_CatTable">
+          <End Type="testBaseModel.CatTable" Role="CatTable" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="testBaseModel.PassportTable" Role="PassportTable" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="CatTable">
+              <PropertyRef Name="idCat" />
+            </Principal>
+            <Dependent Role="PassportTable">
+              <PropertyRef Name="idCat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TraitCat_CatTable">
+          <End Type="testBaseModel.CatTable" Role="CatTable" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="testBaseModel.TraitCat" Role="TraitCat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatTable">
+              <PropertyRef Name="idCat" />
+            </Principal>
+            <Dependent Role="TraitCat">
+              <PropertyRef Name="idCat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeedCatTable_FeedTable">
+          <End Type="testBaseModel.FeedTable" Role="FeedTable" Multiplicity="1" />
+          <End Type="testBaseModel.FeedCatTable" Role="FeedCatTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeedTable">
+              <PropertyRef Name="idFeed" />
+            </Principal>
+            <Dependent Role="FeedCatTable">
+              <PropertyRef Name="idFeed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTable_GenderTable">
+          <End Type="testBaseModel.GenderTable" Role="GenderTable" Multiplicity="1" />
+          <End Type="testBaseModel.UserTable" Role="UserTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GenderTable">
+              <PropertyRef Name="idGender" />
+            </Principal>
+            <Dependent Role="UserTable">
+              <PropertyRef Name="idGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTable_RoleTable">
+          <End Type="testBaseModel.RoleTable" Role="RoleTable" Multiplicity="1" />
+          <End Type="testBaseModel.UserTable" Role="UserTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleTable">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="UserTable">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TraitCat_TraitTable">
+          <End Type="testBaseModel.TraitTable" Role="TraitTable" Multiplicity="1" />
+          <End Type="testBaseModel.TraitCat" Role="TraitCat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TraitTable">
+              <PropertyRef Name="idTrait" />
+            </Principal>
+            <Dependent Role="TraitCat">
+              <PropertyRef Name="idTrait" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище testBaseModelContainer" CdmEntityContainer="testBaseEntities">
+          <EntitySetMapping Name="BreedTable">
+            <EntityTypeMapping TypeName="testBaseModel.BreedTable">
+              <MappingFragment StoreEntitySet="BreedTable">
+                <ScalarProperty Name="Breed" ColumnName="Breed" />
+                <ScalarProperty Name="idBreed" ColumnName="idBreed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatTable">
+            <EntityTypeMapping TypeName="testBaseModel.CatTable">
+              <MappingFragment StoreEntitySet="CatTable">
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="idGender" ColumnName="idGender" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="idBreed" ColumnName="idBreed" />
+                <ScalarProperty Name="CatName" ColumnName="CatName" />
+                <ScalarProperty Name="idCat" ColumnName="idCat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeedCatTable">
+            <EntityTypeMapping TypeName="testBaseModel.FeedCatTable">
+              <MappingFragment StoreEntitySet="FeedCatTable">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="idFeed" ColumnName="idFeed" />
+                <ScalarProperty Name="idCat" ColumnName="idCat" />
+                <ScalarProperty Name="idFeedCat" ColumnName="idFeedCat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeedTable">
+            <EntityTypeMapping TypeName="testBaseModel.FeedTable">
+              <MappingFragment StoreEntitySet="FeedTable">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Feed" ColumnName="Feed" />
+                <ScalarProperty Name="idFeed" ColumnName="idFeed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GenderTable">
+            <EntityTypeMapping TypeName="testBaseModel.GenderTable">
+              <MappingFragment StoreEntitySet="GenderTable">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="idGender" ColumnName="idGender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PassportTable">
+            <EntityTypeMapping TypeName="testBaseModel.PassportTable">
+              <MappingFragment StoreEntitySet="PassportTable">
+                <ScalarProperty Name="ColorCat" ColumnName="ColorCat" />
+                <ScalarProperty Name="UniqueNumber" ColumnName="UniqueNumber" />
+                <ScalarProperty Name="idCat" ColumnName="idCat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleTable">
+            <EntityTypeMapping TypeName="testBaseModel.RoleTable">
+              <MappingFragment StoreEntitySet="RoleTable">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TraitCat">
+            <EntityTypeMapping TypeName="testBaseModel.TraitCat">
+              <MappingFragment StoreEntitySet="TraitCat">
+                <ScalarProperty Name="idTrait" ColumnName="idTrait" />
+                <ScalarProperty Name="idCat" ColumnName="idCat" />
+                <ScalarProperty Name="idTraitCat" ColumnName="idTraitCat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TraitTable">
+            <EntityTypeMapping TypeName="testBaseModel.TraitTable">
+              <MappingFragment StoreEntitySet="TraitTable">
+                <ScalarProperty Name="Trait" ColumnName="Trait" />
+                <ScalarProperty Name="idTrait" ColumnName="idTrait" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTable">
+            <EntityTypeMapping TypeName="testBaseModel.UserTable">
+              <MappingFragment StoreEntitySet="UserTable">
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="idGender" ColumnName="idGender" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
