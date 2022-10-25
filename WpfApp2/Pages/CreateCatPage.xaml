@@ -8,6 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CreateCatPage" FontSize="18">
     <Grid>
+        <ScrollViewer>
         <StackPanel>
             <GroupBox Header="Введите имя котя">
                 <TextBox Name="tbName"></TextBox>
@@ -36,13 +37,16 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Feed}"></TextBlock>
-                                <TextBox Width="20"></TextBox>
+                                <TextBox Width="20" Text="{Binding QM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </GroupBox>
-            <Button Name="btnAdd" Click="btnAdd_Click">Добавить кота</Button>
-        </StackPanel> 
+                <Image Name="photoCat" Width="50" Height="50"/>
+                <Button Name="btnPhto" Click="btnPhto_Click">Добавить фото кота</Button>
+                <Button Name="btnAdd" Click="btnAdd_Click">Добавить кота</Button>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

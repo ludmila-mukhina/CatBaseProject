@@ -24,14 +24,14 @@
                             <StackPanel>
                                 <TextBlock Text="{Binding NameBreed}"/>
                                 <TextBlock Text="{Binding PassportTable.UniqueNumber, StringFormat=Паспорт: {0}}"></TextBlock>
-                                <TextBlock>
-                                    <Run Text="Дата рождения: " FontWeight="Bold"></Run>
-                                    <Run Text="{Binding Birthday, StringFormat={}dd.MM.yyyy}" />
-                                </TextBlock>
-                                <TextBlock Name="tbGender" Text="{Binding GenderTable.Gender}" ></TextBlock>
+                                <TextBlock Text="{Binding Birthday, ConverterCulture=ru, StringFormat={}dd MMMM yyyy года}"/>
+
+                                <TextBlock Name="tbGender" Text="{Binding GenderTable.Gender}"></TextBlock>
                                 <TextBlock Width="490" TextWrapping="Wrap" Name="tbCharacter" Uid="{Binding idCat}"  Loaded="tbCharacter_Loaded"></TextBlock>
                                 <TextBlock Uid="{Binding idCat}" Name="tbMoney" Loaded="tbMoney_Loaded"></TextBlock>
                                 <Image Width="100" Height="100" Source="{Binding Photo, TargetNullValue={StaticResource defaultImage}}"/>
+                                <Button Uid="{Binding idCat}" Content="Удалить" Click="Button_Click"></Button>
+                                <Button Uid="{Binding idCat}" Content="Редактировать" Name="btnupdate" Click="btnupdate_Click"></Button>
                             </StackPanel>
                         </Grid>
                     </Border>

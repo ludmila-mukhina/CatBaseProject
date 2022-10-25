@@ -58,5 +58,23 @@ namespace WpfApp2
             }
             tb.Text = "Затраты на корм в месяц: " + sum.ToString()+ " руб.";
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            int index = Convert.ToInt32(btn.Uid);
+            CatTable cat = BaseClass.tBE.CatTable.FirstOrDefault(x => x.idCat == index);
+            BaseClass.tBE.CatTable.Remove(cat);            
+            BaseClass.tBE.SaveChanges();
+            Frameclass.MainFrame.Navigate(new ShowCatsPage());
+        }
+
+        private void btnupdate_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            int index = Convert.ToInt32(btn.Uid);
+            CatTable cat = BaseClass.tBE.CatTable.FirstOrDefault(x => x.idCat == index);
+            Frameclass.MainFrame.Navigate(new CreateCatPage(cat));
+        }
     }
 }

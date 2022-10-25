@@ -92,6 +92,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="PartialCats.cs" />
+    <Compile Include="PartialFeedClass.cs" />
     <Compile Include="PassportTable.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -205,6 +206,9 @@
     <Resource Include="Resources\logotip.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\cat1.jpg" />
+    <Resource Include="images\cat2.jpg" />
+    <Resource Include="images\cat3.jpg" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>

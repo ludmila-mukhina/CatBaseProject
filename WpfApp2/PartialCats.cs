@@ -9,6 +9,13 @@ namespace WpfApp2
 {
     public partial class CatTable
     {
+        public string birth
+        {
+            get
+            {
+                  return Birthday.ToString("dd MMMM yyyy года");
+            }
+        }
         public string NameBreed
         {
             get
