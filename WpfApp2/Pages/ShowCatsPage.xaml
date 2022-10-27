@@ -11,32 +11,34 @@
         <BitmapImage x:Key="defaultImage" UriSource="/Resources/picture.png"/>
     </Page.Resources>
     <Grid>
+        
         <ListView Name="listCat" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel HorizontalAlignment="Center"></WrapPanel>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Border Padding="5" CornerRadius="5" BorderThickness="1" BorderBrush="Aquamarine">
-                        <Grid Name="gridMain" Width="500" Height="400" Background="{Binding GenderColor}">
-                            <StackPanel>
-                                <TextBlock Text="{Binding NameBreed}"/>
-                                <TextBlock Text="{Binding PassportTable.UniqueNumber, StringFormat=Паспорт: {0}}"></TextBlock>
-                                <TextBlock Text="{Binding Birthday, ConverterCulture=ru, StringFormat={}dd MMMM yyyy года}"/>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="5" CornerRadius="5" BorderThickness="1" BorderBrush="Aquamarine">
+                            <Grid Name="gridMain" Width="500" Height="500" Background="{Binding GenderColor}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding NameBreed}"/>
+                                    <TextBlock Text="{Binding PassportTable.UniqueNumber, StringFormat=Паспорт: {0}}"></TextBlock>
+                                    <TextBlock Text="{Binding Birthday, ConverterCulture=ru, StringFormat={}dd MMMM yyyy года}"/>
 
-                                <TextBlock Name="tbGender" Text="{Binding GenderTable.Gender}"></TextBlock>
-                                <TextBlock Width="490" TextWrapping="Wrap" Name="tbCharacter" Uid="{Binding idCat}"  Loaded="tbCharacter_Loaded"></TextBlock>
-                                <TextBlock Uid="{Binding idCat}" Name="tbMoney" Loaded="tbMoney_Loaded"></TextBlock>
-                                <Image Width="100" Height="100" Source="{Binding Photo, TargetNullValue={StaticResource defaultImage}}"/>
-                                <Button Uid="{Binding idCat}" Content="Удалить" Click="Button_Click"></Button>
-                                <Button Uid="{Binding idCat}" Content="Редактировать" Name="btnupdate" Click="btnupdate_Click"></Button>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                                    <TextBlock Name="tbGender" Text="{Binding GenderTable.Gender}"></TextBlock>
+                                    <TextBlock Width="490" TextWrapping="Wrap" Name="tbCharacter" Uid="{Binding idCat}"  Loaded="tbCharacter_Loaded"></TextBlock>
+                                    <TextBlock Uid="{Binding idCat}" Name="tbMoney" Loaded="tbMoney_Loaded"></TextBlock>
+                                    <Image Width="100" Height="100" Source="{Binding Photo, TargetNullValue={StaticResource defaultImage}}"/>
+                                    <Button Uid="{Binding idCat}" Content="Удалить" Click="Button_Click"></Button>
+                                    <Button Uid="{Binding idCat}" Content="Редактировать" Name="btnupdate" Click="btnupdate_Click"></Button>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        <Button HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Name="btnCreateCat" Click="btnCreateCat_Click">Добавить кота</Button>
     </Grid>
 </Page>

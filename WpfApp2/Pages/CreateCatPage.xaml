@@ -32,7 +32,12 @@
                 <ListBox Name="lbTraits" SelectionMode="Multiple"></ListBox>
             </GroupBox>
             <GroupBox Header="Выберите корм для кота">
-                <ListBox Name="lbFeed" SelectionMode="Multiple">
+                    <!--Далее создаем шаблон ListBox, внутрь которого поместим 
+            текстовое поле с названием корма и поле для записи его количества.
+            Для того чтобы данные из textBox были сразу сохранены и были доступны для добавления в базу,
+            нужно создать в частичном классе нужной таблицы свойство, и связать его двухсторонней привязкой с TextBox.
+            Тогда данные будут сразу же сохраняться в свойстве.-->
+                    <ListBox Name="lbFeed" SelectionMode="Multiple">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -44,8 +49,8 @@
                 </ListBox>
             </GroupBox>
                 <Image Name="photoCat" Width="50" Height="50"/>
-                <Button Name="btnPhto" Click="btnPhto_Click">Добавить фото кота</Button>
-                <Button Name="btnAdd" Click="btnAdd_Click">Добавить кота</Button>
+                <Button Name="btnPhto" Click="btnPhto_Click">Добавить/Изменить фото кота</Button>
+                <Button Name="btnAdd" Click="btnAdd_Click">Сохранить информацию о коте</Button>
             </StackPanel>
         </ScrollViewer>
     </Grid>
