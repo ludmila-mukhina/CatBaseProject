@@ -20,9 +20,11 @@ namespace WpfApp2
     /// </summary>
     public partial class AdminPage : Page
     {
-        public AdminPage()
+        UserTable user;  // создаем объект для хранения информации о пользователе
+        public AdminPage(UserTable user)
         {
             InitializeComponent();
+            this.user = user;  //  заполняем выше созданный объект информацией об авторизованном пользователе
             dgUsers.ItemsSource = BaseClass.tBE.UserTable.ToList(); // заполняем DataGrid записями из таблицы БД (UserTable)
         }
 
@@ -48,6 +50,11 @@ namespace WpfApp2
         private void btnShowCats_Click(object sender, RoutedEventArgs e)
         {
             Frameclass.MainFrame.Navigate(new ShowCatsPage());
+        }
+
+        private void btnPersonal_Click(object sender, RoutedEventArgs e)   // переход в личный кабинет
+        {
+            Frameclass.MainFrame.Navigate(new PersonalPage(user));
         }
     }
 }

@@ -4,16 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3e5d16e0e7314874aadc3969223dd9d9" Name="Diagram1" ZoomLevel="38">
-        <EntityTypeShape EntityType="testBaseModel.BreedTable" Width="1.5" PointX="0.75" PointY="3.125" />
-        <EntityTypeShape EntityType="testBaseModel.CatTable" Width="1.5" PointX="3" PointY="5.375" />
-        <EntityTypeShape EntityType="testBaseModel.FeedCatTable" Width="1.5" PointX="8.25" PointY="5.875" />
-        <EntityTypeShape EntityType="testBaseModel.FeedTable" Width="1.5" PointX="6" PointY="15" />
-        <EntityTypeShape EntityType="testBaseModel.GenderTable" Width="1.5" PointX="0.75" PointY="6" />
-        <EntityTypeShape EntityType="testBaseModel.PassportTable" Width="1.5" PointX="5.25" PointY="11.75" />
-        <EntityTypeShape EntityType="testBaseModel.RoleTable" Width="1.5" PointX="3.75" PointY="2.125" />
-        <EntityTypeShape EntityType="testBaseModel.TraitCat" Width="1.5" PointX="8.25" PointY="3" />
-        <EntityTypeShape EntityType="testBaseModel.TraitTable" Width="1.5" PointX="6" PointY="2.125" />
+      <Diagram DiagramId="3e5d16e0e7314874aadc3969223dd9d9" Name="Diagram1" ZoomLevel="125">
+        <EntityTypeShape EntityType="testBaseModel.BreedTable" Width="1.5" PointX="0.75" PointY="3.25" />
+        <EntityTypeShape EntityType="testBaseModel.CatTable" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="testBaseModel.FeedCatTable" Width="1.5" PointX="8.25" PointY="3" />
+        <EntityTypeShape EntityType="testBaseModel.FeedTable" Width="1.5" PointX="6" PointY="2.125" />
+        <EntityTypeShape EntityType="testBaseModel.GenderTable" Width="1.5" PointX="0.75" PointY="6.125" />
+        <EntityTypeShape EntityType="testBaseModel.PassportTable" Width="1.5" PointX="5.25" PointY="11.875" />
+        <EntityTypeShape EntityType="testBaseModel.RoleTable" Width="1.5" PointX="3.75" PointY="2.25" />
+        <EntityTypeShape EntityType="testBaseModel.TraitCat" Width="1.5" PointX="8.25" PointY="9.125" />
+        <EntityTypeShape EntityType="testBaseModel.TraitTable" Width="1.5" PointX="6" PointY="15.25" />
+        <EntityTypeShape EntityType="testBaseModel.Userphoto" Width="1.5" PointX="8.25" PointY="6.125" />
         <EntityTypeShape EntityType="testBaseModel.UserTable" Width="1.5" PointX="6" PointY="5.5" />
         <AssociationConnector Association="testBaseModel.FK_CatTable_BreedTable" />
         <AssociationConnector Association="testBaseModel.FK_CatTable_GenderTable" />
@@ -24,6 +25,7 @@
         <AssociationConnector Association="testBaseModel.FK_UserTable_GenderTable" />
         <AssociationConnector Association="testBaseModel.FK_UserTable_RoleTable" />
         <AssociationConnector Association="testBaseModel.FK_TraitCat_TraitTable" />
+        <AssociationConnector Association="testBaseModel.FK_Userphoto_UserTable" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

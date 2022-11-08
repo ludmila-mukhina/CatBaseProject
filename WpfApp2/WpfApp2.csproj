@@ -44,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
@@ -99,6 +100,9 @@
     <Compile Include="Pages\RegPage.xaml.cs">
       <DependentUpon>RegPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PersonalPage.xaml.cs">
+      <DependentUpon>PersonalPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RoleTable.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -111,8 +115,14 @@
     <Compile Include="TraitTable.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Userphoto.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserTable.cs">
       <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\WindowPerson.xaml.cs">
+      <DependentUpon>WindowPerson.xaml</DependentUpon>
     </Compile>
     <Page Include="Pages\CreateCatPage.xaml">
       <SubType>Designer</SubType>
@@ -154,6 +164,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ShowCatsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PersonalPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\WindowPerson.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -206,6 +224,7 @@
     <Resource Include="Resources\logotip.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\nophoto.jpg" />
     <Resource Include="images\cat1.jpg" />
     <Resource Include="images\cat2.jpg" />
     <Resource Include="images\cat3.jpg" />

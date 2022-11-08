@@ -77,6 +77,15 @@
           <Property Name="idTrait" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Trait" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Userphoto">
+          <Key>
+            <PropertyRef Name="idPhoto" />
+          </Key>
+          <Property Name="idPhoto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="photoBinary" Type="varbinary(max)" />
+          <Property Name="photoPath" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="UserTable">
           <Key>
             <PropertyRef Name="idUser" />
@@ -129,7 +138,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FeedCatTable_FeedTable">
-          <End Role="FeedTable" Type="Self.FeedTable" Multiplicity="1" />
+          <End Role="FeedTable" Type="Self.FeedTable" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="FeedCatTable" Type="Self.FeedCatTable" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FeedTable">
@@ -169,7 +180,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TraitCat_TraitTable">
-          <End Role="TraitTable" Type="Self.TraitTable" Multiplicity="1" />
+          <End Role="TraitTable" Type="Self.TraitTable" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="TraitCat" Type="Self.TraitCat" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TraitTable">
@@ -177,6 +190,18 @@
             </Principal>
             <Dependent Role="TraitCat">
               <PropertyRef Name="idTrait" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Userphoto_UserTable">
+          <End Role="UserTable" Type="Self.UserTable" Multiplicity="1" />
+          <End Role="Userphoto" Type="Self.Userphoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTable">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="Userphoto">
+              <PropertyRef Name="idUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -214,6 +239,7 @@
           <EntitySet Name="RoleTable" EntityType="Self.RoleTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TraitCat" EntityType="Self.TraitCat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TraitTable" EntityType="Self.TraitTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Userphoto" EntityType="Self.Userphoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserTable" EntityType="Self.UserTable" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_CatTable_BreedTable" Association="Self.FK_CatTable_BreedTable">
             <End Role="BreedTable" EntitySet="BreedTable" />
@@ -243,6 +269,10 @@
             <End Role="TraitTable" EntitySet="TraitTable" />
             <End Role="TraitCat" EntitySet="TraitCat" />
           </AssociationSet>
+          <AssociationSet Name="FK_Userphoto_UserTable" Association="Self.FK_Userphoto_UserTable">
+            <End Role="UserTable" EntitySet="UserTable" />
+            <End Role="Userphoto" EntitySet="Userphoto" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserTable_GenderTable" Association="Self.FK_UserTable_GenderTable">
             <End Role="GenderTable" EntitySet="GenderTable" />
             <End Role="UserTable" EntitySet="UserTable" />
@@ -266,6 +296,7 @@
           <EntitySet Name="RoleTable" EntityType="testBaseModel.RoleTable" />
           <EntitySet Name="TraitCat" EntityType="testBaseModel.TraitCat" />
           <EntitySet Name="TraitTable" EntityType="testBaseModel.TraitTable" />
+          <EntitySet Name="Userphoto" EntityType="testBaseModel.Userphoto" />
           <EntitySet Name="UserTable" EntityType="testBaseModel.UserTable" />
           <AssociationSet Name="FK_CatTable_BreedTable" Association="testBaseModel.FK_CatTable_BreedTable">
             <End Role="BreedTable" EntitySet="BreedTable" />
@@ -302,6 +333,10 @@
           <AssociationSet Name="FK_TraitCat_TraitTable" Association="testBaseModel.FK_TraitCat_TraitTable">
             <End Role="TraitTable" EntitySet="TraitTable" />
             <End Role="TraitCat" EntitySet="TraitCat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Userphoto_UserTable" Association="testBaseModel.FK_Userphoto_UserTable">
+            <End Role="UserTable" EntitySet="UserTable" />
+            <End Role="Userphoto" EntitySet="Userphoto" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="BreedTable">
@@ -392,6 +427,16 @@
           <Property Name="Trait" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TraitCat" Relationship="testBaseModel.FK_TraitCat_TraitTable" FromRole="TraitTable" ToRole="TraitCat" />
         </EntityType>
+        <EntityType Name="Userphoto">
+          <Key>
+            <PropertyRef Name="idPhoto" />
+          </Key>
+          <Property Name="idPhoto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="photoBinary" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="photoPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserTable" Relationship="testBaseModel.FK_Userphoto_UserTable" FromRole="Userphoto" ToRole="UserTable" />
+        </EntityType>
         <EntityType Name="UserTable">
           <Key>
             <PropertyRef Name="idUser" />
@@ -406,6 +451,7 @@
           <Property Name="idRole" Type="Int32" Nullable="false" />
           <NavigationProperty Name="GenderTable" Relationship="testBaseModel.FK_UserTable_GenderTable" FromRole="UserTable" ToRole="GenderTable" />
           <NavigationProperty Name="RoleTable" Relationship="testBaseModel.FK_UserTable_RoleTable" FromRole="UserTable" ToRole="RoleTable" />
+          <NavigationProperty Name="Userphoto" Relationship="testBaseModel.FK_Userphoto_UserTable" FromRole="UserTable" ToRole="Userphoto" />
         </EntityType>
         <Association Name="FK_CatTable_BreedTable">
           <End Type="testBaseModel.BreedTable" Role="BreedTable" Multiplicity="1" />
@@ -474,7 +520,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FeedCatTable_FeedTable">
-          <End Type="testBaseModel.FeedTable" Role="FeedTable" Multiplicity="1" />
+          <End Type="testBaseModel.FeedTable" Role="FeedTable" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="testBaseModel.FeedCatTable" Role="FeedCatTable" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FeedTable">
@@ -510,7 +558,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TraitCat_TraitTable">
-          <End Type="testBaseModel.TraitTable" Role="TraitTable" Multiplicity="1" />
+          <End Type="testBaseModel.TraitTable" Role="TraitTable" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="testBaseModel.TraitCat" Role="TraitCat" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TraitTable">
@@ -518,6 +568,18 @@
             </Principal>
             <Dependent Role="TraitCat">
               <PropertyRef Name="idTrait" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Userphoto_UserTable">
+          <End Type="testBaseModel.UserTable" Role="UserTable" Multiplicity="1" />
+          <End Type="testBaseModel.Userphoto" Role="Userphoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTable">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="Userphoto">
+              <PropertyRef Name="idUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -605,6 +667,16 @@
               <MappingFragment StoreEntitySet="TraitTable">
                 <ScalarProperty Name="Trait" ColumnName="Trait" />
                 <ScalarProperty Name="idTrait" ColumnName="idTrait" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Userphoto">
+            <EntityTypeMapping TypeName="testBaseModel.Userphoto">
+              <MappingFragment StoreEntitySet="Userphoto">
+                <ScalarProperty Name="photoPath" ColumnName="photoPath" />
+                <ScalarProperty Name="photoBinary" ColumnName="photoBinary" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="idPhoto" ColumnName="idPhoto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

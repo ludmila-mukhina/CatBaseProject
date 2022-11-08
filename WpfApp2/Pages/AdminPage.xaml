@@ -22,6 +22,7 @@
                 </DataGrid.Columns>
             </DataGrid>
             <Button Name="btnShowCats" Click="btnShowCats_Click">Просмотр списка котов</Button>
+            <Button Name="btnPersonal" Click="btnPersonal_Click">Перейти в личный кабинет</Button>
             <Button Name="btnmain" Click="btnmain_Click">Вернуться на главную страницу</Button>
         </StackPanel>
     </Grid>

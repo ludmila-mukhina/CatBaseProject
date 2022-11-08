@@ -34,6 +34,7 @@ namespace WpfApp2
         public virtual DbSet<RoleTable> RoleTable { get; set; }
         public virtual DbSet<TraitCat> TraitCat { get; set; }
         public virtual DbSet<TraitTable> TraitTable { get; set; }
+        public virtual DbSet<Userphoto> Userphoto { get; set; }
         public virtual DbSet<UserTable> UserTable { get; set; }
     }
 }

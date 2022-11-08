@@ -11,7 +11,6 @@
         <BitmapImage x:Key="defaultImage" UriSource="/Resources/picture.png"/>
     </Page.Resources>
     <Grid>
-        
         <ListView Name="listCat" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>

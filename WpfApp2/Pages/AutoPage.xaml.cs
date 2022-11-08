@@ -46,11 +46,11 @@ namespace WpfApp2
                 switch(autoUser.idRole)  // если пользователь найден, то смотрим, какая у пользователя роль
                 {
                     case 1:  // если администратор
-                        Frameclass.MainFrame.Navigate(new AdminPage()); // переход в меню администратора
+                        Frameclass.MainFrame.Navigate(new AdminPage(autoUser)); // переход в меню администратора
                     break;
                     case 2:  // если пользователь
-                        MessageBox.Show("Привет, пользователь");  
-                    break;
+                        Frameclass.MainFrame.Navigate(new PersonalPage(autoUser)); // переход в личный кабинет пользователя
+                        break;
                     default:
                         MessageBox.Show("Пока");
                     break;
