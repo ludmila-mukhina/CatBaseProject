@@ -12,7 +12,9 @@
         <StackPanel Orientation="Horizontal">
             <StackPanel>
                 <Image Height="300" Width="300" Name="imUser" VerticalAlignment="Top" Source="\Resources\nophoto.jpg"/>
-                <Button Click="Button_Click_1">Изменить фото</Button>
+                <Button Click="Button_Click_1">Изменить фото на новое</Button>
+                <Button Click="Button_Click_2">Добавить несколько фото</Button>
+                <Button Click="Button_Click_3">Изменить фото на старое</Button>
             </StackPanel>
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
@@ -24,7 +26,14 @@
                     <TextBlock Name="tbName"></TextBlock>
                 </StackPanel>
                 <Button Click="Button_Click">Изменить личные данные</Button>
-
+                <StackPanel Name="spGallery" Visibility="Collapsed">
+                <StackPanel Orientation="Horizontal">
+                    <Button Name="Back" Click="Back_Click" IsEnabled="False">Назад</Button>
+                    <Image Width="200" Height="200" Name="imgGallery"></Image>
+                    <Button Name="Next" Click="Next_Click">Вперед</Button>
+                </StackPanel>
+                <Button Name="btnOld" Click="btnOld_Click">Изменить фото на выбранное</Button>
+                </StackPanel>
             </StackPanel>
             
         </StackPanel>
