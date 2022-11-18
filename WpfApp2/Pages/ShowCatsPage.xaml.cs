@@ -20,10 +20,25 @@ namespace WpfApp2
     /// </summary>
     public partial class ShowCatsPage : Page
     {
+       
         public ShowCatsPage()  // страница со списком котов
         {
             InitializeComponent();
             listCat.ItemsSource = BaseClass.tBE.CatTable.ToList();  // передаем записи из таблицы БД ListView
+            
+            List<BreedTable> BT = BaseClass.tBE.BreedTable.ToList();
+            
+            // программное заполнение выпадающего списка
+            cmbBreed.Items.Add("Все породы");  // первый элемент выпадающего списка, который сбрасывает фильтрацию
+            for (int i=0; i<BT.Count; i++)  // цикл для записи в выпадающий список всех пород котов из БД
+            {
+                cmbBreed.Items.Add(BT[i].Breed);
+            }
+
+            cmbBreed.SelectedIndex = 0;  // выбранное по умолчанию значение в списке с породами котов ("Все породы")
+            cmbSort.SelectedIndex = 0;  // выбранное по умолчанию значение в списке с видами сортировки ("Без сортировки")
+            
+            tbCount.Text = "Количество записей: " + BaseClass.tBE.CatTable.ToList().Count;
         }
 
         private void tbCharacter_Loaded(object sender, RoutedEventArgs e)  // загрузка черт характера
@@ -94,6 +109,78 @@ namespace WpfApp2
         private void btnCreateCat_Click(object sender, RoutedEventArgs e)  // переход на страницу  для создания новой записи о коте во всех таблицах, с ним связанных
         {
             Frameclass.MainFrame.Navigate(new CreateCatPage());
+        }
+
+
+        void Filter()  // метод для одновременной фильтрации, поиска и сортировки
+        {
+            List<CatTable> catList = new List<CatTable>();  // пустой список, который далее будет заполнять элементами, удавлетворяющими условиям фильтрации, поиска и сортировки
+            
+            string breed = cmbBreed.SelectedValue.ToString();  // выбранное пользователем название породы
+            int index = cmbBreed.SelectedIndex;
+            
+            // поиск значений, удовлетворяющих условия фильтра
+            if (index!=0)
+            {
+                catList = BaseClass.tBE.CatTable.Where(x => x.BreedTable.Breed == breed).ToList();
+            }
+            else  // если выбран пункт "Все породы", то сбрасываем фильтрацию:
+            {
+                catList = BaseClass.tBE.CatTable.ToList();                
+            }
+            
+
+            // поиск совпадений по именам котов
+            if (!string.IsNullOrWhiteSpace(tbSearch.Text))  // если строка не пустая и если она не состоит из пробелов
+            {
+                catList = catList.Where(x => x.CatName.ToLower().Contains(tbSearch.Text.ToLower())).ToList();
+            }
+
+
+            // выбор элементов только с фото
+            if (cbPhoto.IsChecked == true)
+            {
+                catList = catList.Where(x=>x.Photo!=null).ToList();
+            }
+
+            // сортировка
+            switch(cmbSort.SelectedIndex)
+            {
+                case 1:
+                    {
+                        catList.Sort((x, y) => x.CatName.CompareTo(y.CatName));
+                    }
+                    break;
+                case 2:
+                    {
+                        catList.Sort((x, y) => x.CatName.CompareTo(y.CatName));
+                        catList.Reverse();
+                    }
+                    break;
+            }
+           
+            listCat.ItemsSource = catList;
+            if (catList.Count == 0)
+            {
+                MessageBox.Show("нет записей");
+            }
+            tbCount.Text = "Количество записей "+catList.Count;
+        }
+
+        // далее во всех обработчиках событий применяем один и тот же метод Filter, который позволяет находить условия, удовлетворяющие всем сразу выбранным параметрам
+        private void cmbBreed_SelectionChanged(object sender, SelectionChangedEventArgs e) 
+        {
+            Filter();
+        }
+
+        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Filter();
+        }
+
+        private void cbPhoto_Checked(object sender, RoutedEventArgs e)
+        {
+            Filter();
         }
     }
 }

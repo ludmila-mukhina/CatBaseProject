@@ -11,7 +11,23 @@
         <BitmapImage x:Key="defaultImage" UriSource="/Resources/picture.png"/>
     </Page.Resources>
     <Grid>
-        <ListView Name="listCat" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <StackPanel>
+        <StackPanel>
+                <Button Name="btnCreateCat" Click="btnCreateCat_Click">Добавить кота</Button>
+                <TextBlock Name="tbCount"></TextBlock>
+            <ComboBox Name="cmbBreed" SelectionChanged="cmbBreed_SelectionChanged"></ComboBox>
+            <GroupBox Header="Введите имя для поиска">
+                <TextBox Name="tbSearch" TextChanged="tbSearch_TextChanged" Height="35" FontSize="18"></TextBox>
+            </GroupBox>
+                <CheckBox Name="cbPhoto" Checked="cbPhoto_Checked" Unchecked="cbPhoto_Checked">Только с фото</CheckBox>
+                <ComboBox Name="cmbSort" SelectionChanged="cmbBreed_SelectionChanged">
+                    <ComboBoxItem>Без сортировки</ComboBoxItem>
+                    <ComboBoxItem>По имени от A до Я</ComboBoxItem>
+                    <ComboBoxItem>По имени от Я до А</ComboBoxItem>
+                </ComboBox>
+        </StackPanel>
+        
+        <ListView Name="listCat" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="500">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel HorizontalAlignment="Center"></WrapPanel>
@@ -38,6 +54,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        <Button HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Name="btnCreateCat" Click="btnCreateCat_Click">Добавить кота</Button>
+        </StackPanel>
+        <!--<Button HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Name="btnCreateCat" Click="btnCreateCat_Click">Добавить кота</Button>-->
     </Grid>
 </Page>
